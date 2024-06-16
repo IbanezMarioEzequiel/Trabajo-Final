@@ -1,4 +1,4 @@
-class Asteroide {
+class Asteroide implements IMoveable{
   private Transform transform;
   private ImageComponent imageComponent;
   private int resistencia;
@@ -57,6 +57,9 @@ class Asteroide {
   }
   
   public void display() {
+  }
+  
+  public void mover() {
   }
   
   public void debilitar() {
