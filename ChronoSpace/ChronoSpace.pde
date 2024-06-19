@@ -8,9 +8,7 @@ private Gif gif;
 private Minim minim;
 private AudioPlayer musicaInicio;
 private PImage image;
-private PImage titulo1;
-private PImage titulo2;
-private PImage titulo3;
+private PImage titulo;
 private float opacidadLogo = 255; // Inicialmente, la imagen del logo está completamente visible,
 private boolean mostrarLogo=true; // y cuando la imagen deje de verse, el estado de esta variable cambiará a false y se mostrará la pantalla de inicio
 private PVector posicion;
@@ -30,9 +28,7 @@ void setup() {
   /* Posición para el logo, el fondo y el título */
   posicion=new PVector(width/2,height/2);
   image = loadImage("logo.png");
-  titulo1 = loadImage("titulo1.png");
-  titulo2 = loadImage("titulo2.png");
-  titulo3 = loadImage("titulo3.png");
+  titulo = loadImage("titulo.png");
 
 }
 
@@ -57,9 +53,8 @@ void draw() {
     //Estructura de control que muestra el nombre del juego si el valor de la variable boolean "nombreJuego" es verdadero
     if(nombreJuego) {
       noTint();
-      image(titulo1, posicion.x, 50, 500, 50);
-      image(titulo2, posicion.x, 100, 400, 50);
-      image(titulo3, posicion.x, 150, 300, 50);
+      image(titulo, posicion.x, 100, 500, 150);
+
     }
     
     // Estructura de control que sirve para darle un efecto de parpadeo al nombre del juego

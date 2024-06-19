@@ -64,7 +64,7 @@ class Asteroide implements IMoveable{
   
   public void debilitar() {
   }
-  
-  public boolean estaDestruido() {
-  }
+ // estadoDestruido se encuentra comentado debido a un error 
+  //public boolean estaDestruido() {
+ //}
 }
