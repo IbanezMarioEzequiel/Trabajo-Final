@@ -4,11 +4,11 @@ class Pantalla implements IVisualizable{
   private float opacidadLogo;
   private PVector posicion;
   private int stateScreen; // Variable que sirve de ayuda para el estado de las pantallas
-  private int stateOption; // Variable que sirve de ayuda para el estado de las opciones
   private boolean nombreJuego;
   private String[] opciones;
   private int i;
   private int opcionSeleccionada;
+  private InstructorOpciones instructorO;
   private Nave nave;
   private GestorAsteroides gstAsteroide;
   
@@ -19,6 +19,7 @@ class Pantalla implements IVisualizable{
     this.posicion = new PVector(width/2,height/2);
     this.stateScreen = StateScreen.LOGO; // Se inicializa la variable stateScreen con el estado del logo del grupo para que sea lo primero que se dibuje con el método mostrarPantallaActual llamado en el draw
     this.opcionSeleccionada=0;
+    this.instructorO = new InstructorOpciones();
     Transform transformNave=new Transform(new PVector(width/2,height-100));
     ImageComponent imageNave=new ImageComponent("navve.png");
     this.nave=new Nave(transformNave,imageNave,nave.bala, new PVector(10,1000*Time.getDeltaTime(frameRate)));
@@ -55,10 +56,11 @@ class Pantalla implements IVisualizable{
         setOpciones(new String [] {"Empezar", "Salir"});
         for(i = 0; i < opciones.length; i++) {
           if(i == opcionSeleccionada) {
-            stateOption = StateOption.OPCIONMARCADA;
+            instructorO.setStateOption(StateOption.OPCIONMARCADA);
           } else {
-            stateOption = StateOption.OPCIONNOMARCADA;
+            instructorO.setStateOption(StateOption.OPCIONNOMARCADA);
           }
+        instructorO.display(getStateScreen(), getOpciones(), getI(), getOpcionSeleccionada());
         }
       break;      
       }
@@ -81,10 +83,11 @@ class Pantalla implements IVisualizable{
         setOpciones(new String[] {"Reintentar", "Salir"});
         for(i = 0; i < opciones.length; i++) {
           if(i == opcionSeleccionada) {
-            stateOption = StateOption.OPCIONMARCADA;
+            instructorO.setStateOption(StateOption.OPCIONMARCADA);
           } else {
-            stateOption = StateOption.OPCIONNOMARCADA;
+            instructorO.setStateOption(StateOption.OPCIONNOMARCADA);
           }
+        instructorO.display(getStateScreen(), getOpciones(), getI(), getOpcionSeleccionada());
         }
       break;
       }
