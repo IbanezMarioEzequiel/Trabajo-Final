@@ -1,4 +1,4 @@
-class Asteroide implements IMoveable{
+class Asteroide implements IVisualizable{
   // Variables privadas de la clase
   private Transform transform;  // Transform del asteroide (posición)
   private int resistencia; // Resistencia del asteroide
