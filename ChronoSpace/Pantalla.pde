@@ -9,8 +9,12 @@ class Pantalla implements IVisualizable{
   private int i;
   private int opcionSeleccionada;
   private InstructorOpciones instructorO;
+  private HUD hud;
   private Nave nave;
   private GestorAsteroides gstAsteroide;
+  private Escenario escenario;
+  private Derrota derrota;
+  private Victoria victoria;
   
   public Pantalla() {
     this.image = loadImage("logo.png");
@@ -22,7 +26,7 @@ class Pantalla implements IVisualizable{
     this.instructorO = new InstructorOpciones();
     Transform transformNave=new Transform(new PVector(width/2,height-100));
     ImageComponent imageNave=new ImageComponent("navve.png");
-    this.nave=new Nave(transformNave,imageNave,nave.bala, new PVector(10,1000*Time.getDeltaTime(frameRate)));
+    this.nave = new Nave(transformNave, imageNave, new PVector(int((width+height)/2)*Time.getDeltaTime(frameRate), int((width+height)/2)*Time.getDeltaTime(frameRate)), 100);
     this.gstAsteroide=new GestorAsteroides();
   }
   
@@ -53,7 +57,6 @@ class Pantalla implements IVisualizable{
         } else {
           nombreJuego=true;
         }
-        setOpciones(new String [] {"Empezar", "Salir"});
         for(i = 0; i < opciones.length; i++) {
           if(i == opcionSeleccionada) {
             instructorO.setStateOption(StateOption.OPCIONMARCADA);
@@ -65,22 +68,16 @@ class Pantalla implements IVisualizable{
       break;      
       }
       case StateScreen.NIVEL:{
-        background(124, 5, 5);
-        nave.transform.setPosition((new PVector(width/2,height-100)));
+        escenario.setPosicion(new PVector(width/2, height/2));
+        escenario.display();
         nave.display();
         gstAsteroide.display();
-      break;
-      }
-      case StateScreen.VICTORIA:{
-        background(0, 255, 0);
-        fill(255, 0, 0);
-        textAlign(CENTER);
-        text("Nivel Completado", posicion.x, posicion.y);
+        hud.mostrarTiempo();
+        hud.mostrarEnergia(nave);
       break;
       }
       case StateScreen.DERROTA:{
-        background(0);
-        setOpciones(new String[] {"Reintentar", "Salir"});
+        derrota.display();
         for(i = 0; i < opciones.length; i++) {
           if(i == opcionSeleccionada) {
             instructorO.setStateOption(StateOption.OPCIONMARCADA);
@@ -89,6 +86,20 @@ class Pantalla implements IVisualizable{
           }
         instructorO.display(getStateScreen(), getOpciones(), getI(), getOpcionSeleccionada());
         }
+      break;
+      }
+      case StateScreen.VICTORIA:{
+        victoria.display();
+        fill(255, 0, 0);
+        textAlign(CENTER);
+        textSize(40);
+        text("Presiona Enter para volver", width/2, height/2+180);
+        text("al selector de niveles", width/2, height/2+250);
+      break;
+      }
+      case StateScreen.COMPLETADO:{
+        imageMode(CENTER);
+        image(juegoCompletado, width/2, height/2, width, height);
       break;
       }
     }
