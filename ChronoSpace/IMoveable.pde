@@ -1,3 +1,0 @@
-interface IMoveable{
-  void mover();
-}
