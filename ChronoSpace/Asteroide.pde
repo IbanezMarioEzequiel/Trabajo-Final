@@ -1,70 +1,88 @@
 class Asteroide implements IMoveable{
-  private Transform transform;
-  private ImageComponent imageComponent;
-  private int resistencia;
-  private int alto;
-  private int ancho;
+  // Variables privadas de la clase
+  private Transform transform;  // Transform del asteroide (posición)
+  private int resistencia; // Resistencia del asteroide
+  private int alto; // Altura del asteroide
+  private int ancho; // Ancho del asteroide
+  private SpriteAsteroide spriteAsteroide; // Sprite animado del asteroide
+  private PVector velocidad; // Vector de velocidad del asteroide
   
+ // Constructor por defecto
   public Asteroide() {
+}
+  
+ // Constructor con parámetros
+  public Asteroide(Transform transform, PVector velocidad, int resistencia, int alto, int ancho) {
+    this.transform = transform;
+    this.velocidad = velocidad;
+    this.resistencia = resistencia;
+    this.alto = alto;
+    this.ancho = ancho;
+    spriteAsteroide = new SpriteAsteroide(); // Crear un nuevo sprite del asteroide
+    // Asignar una nueva posición al sprite del asteroide utilizando la posición del transform del asteroide
+    spriteAsteroide.setPosicion(new PVector(transform.getPosition().x, transform.getPosition().y));
+    // Asignar una nueva velocidad al sprite del asteroide utilizando la velocidad del asteroide
+    spriteAsteroide.setVelocidad(new PVector(0, this.velocidad.y));
   }
   
-  public Asteroide(Transform transform, ImageComponent imageComponent, int resistencia, int alto, int ancho) {
-    this.transform=transform;
-    this.imageComponent=imageComponent;
-    this.resistencia=resistencia;
-    this.alto=alto;
-    this.ancho=ancho;
-  }
-  
+  // Getter y Setter para transform
   public Transform getTransform() {
     return transform;
   }
-  
+
   public void setTransform(Transform transform) {
-    this.transform=transform;
+    this.transform = transform;
   }
-  
-  public ImageComponent getImageComponent() {
-    return imageComponent;
-  }
-  
-  public void setImageComponent(ImageComponent imageComponent) {
-    this.imageComponent=imageComponent;
-  }
-  
+
+  // Getter y Setter para resistencia
   public int getResistencia() {
     return resistencia;
   }
-  
+
   public void setResistencia(int resistencia) {
-    this.resistencia=resistencia;
+    this.resistencia = resistencia;
   }
-  
+
+  // Getter y Setter para alto
   public int getAlto() {
     return alto;
   }
-  
+
   public void setAlto(int alto) {
-    this.alto=alto;
+    this.alto = alto;
   }
-  
+
+  // Getter y Setter para ancho
   public int getAncho() {
     return ancho;
   }
-  
+
   public void setAncho(int ancho) {
-    this.ancho=ancho;
+    this.ancho = ancho;
   }
-  
+
+  // Método para mostrar el sprite del asteroide en la pantalla
   public void display() {
+    spriteAsteroide.display();
   }
-  
-  public void mover() {
-  }
-  
+
+  // Método para debilitar la resistencia del asteroide en 10 unidades
   public void debilitar() {
+    this.resistencia -= 10;
   }
- // estadoDestruido se encuentra comentado debido a un error 
-  //public boolean estaDestruido() {
- //}
+
+  // Getter para el sprite del asteroide
+  public SpriteAsteroide getSpriteAsteroide() {
+    return this.spriteAsteroide;
+  }
+
+  // Método para verificar si el asteroide está destruido
+  public boolean estaDestruido() {
+    // Si la resistencia es menor o igual a 0, el asteroide está destruido
+    if (this.resistencia <= 0) {
+      return true; // Devuelve verdadero
+    } else {
+      return false; // Devuelve falso
+    }
+  }
 }
